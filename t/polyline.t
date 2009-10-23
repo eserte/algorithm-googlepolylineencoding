@@ -1,0 +1,30 @@
+#!/usr/bin/perl -w
+# -*- perl -*-
+
+#
+# Author: Slaven Rezic
+#
+
+use strict;
+
+BEGIN {
+    if (!eval q{
+	use Test::More;
+	1;
+    }) {
+	print "1..0 # skip no Test::More module\n";
+	exit;
+    }
+}
+
+plan tests => 2;
+
+use_ok 'Algorithm::GooglePolylineEncoding';
+
+my @path = ({lat => 38.5,   lon => -120.2},
+	    {lat => 40.7,   lon => -120.95},
+	    {lat => 43.252, lon => -126.453},
+	   );
+is(Algorithm::GooglePolylineEncoding::encode_polyline(@path), '_p~iF~ps|U_ulLnnqC_mqNvxq`@');
+
+__END__
