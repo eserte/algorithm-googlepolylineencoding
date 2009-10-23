@@ -42,8 +42,8 @@ sub encode_number {
     }
 #   6. Break the binary value out into 5-bit chunks (starting from the right hand side):
 #      00001 00010 01010 10000 11111 00001
-    my $bin = sprintf "%b", $number;
-    $bin = "0"x(5-length($bin)%5) . $bin if length($bin)%5 != 0; # pad
+    my $bin = sprintf '%b', $number;
+    $bin = '0'x(5-length($bin)%5) . $bin if length($bin)%5 != 0; # pad
     my @chunks;
     my $revbin = reverse $bin;
     push @chunks, scalar reverse($1) while $revbin =~ m{(.....)}g;
@@ -80,6 +80,37 @@ sub encode_polyline {
     join '', @res;
 }
 
+sub encode_level {
+#   1. Take the initial unsigned value:
+#      174
+    my $number = shift;
+#   2. Convert the decimal value to a binary value:
+#      10101110
+    my $bin = sprintf '%b', $number;
+#   3. Break the binary value out into 5-bit chunks (starting from the right hand side):
+#      101 01110
+    $bin = '0'x(5-length($bin)%5) . $bin if length($bin)%5 != 0; # pad
+    my @chunks;
+    my $revbin = reverse $bin;
+    push @chunks, scalar reverse($1) while $revbin =~ m{(.....)}g;
+#   4. Place the 5-bit chunks into reverse order:
+#      01110 101
+    # It's already reversed
+#   5. OR each value with 0x20 if another bit chunk follows:
+#      101110 00101
+    @chunks = ((map { oct("0b$_") | 0x20 } @chunks[0 .. $#chunks-1]), oct("0b".$chunks[-1])); # and also decode to decimal on the fly
+#   6. Convert each value to decimal:
+#      46 5
+    # Done above
+#   7. Add 63 to each value:
+#      109 68
+    @chunks = map { $_+63 } @chunks;
+#   8. Convert each value to its ASCII equivalent:
+#      mD
+    @chunks = map { chr } @chunks;
+    join '', @chunks;
+}
+
 1;
 
 __END__
@@ -105,6 +136,27 @@ This module is a light-weight version of
 L<Geo::Google::PolylineEncoder>, essentially just doing the encoding
 part without any line simplification, and implemented without any CPAN
 dependencies.
+
+=head2 FUNCTIONS
+
+=over
+
+=item encode_polyline(@polyline)
+
+Take an array of C<< {lat => ..., lon => ...} >> hashrefs and return
+an encoded polyline. Latitudes and longitudes should be expressed as
+decimal degrees (DD; L<http://en.wikipedia.org/wiki/Decimal_degrees>).
+
+=item encode_level($level)
+
+Return an encoded level.
+
+=item encode_number($number)
+
+Return just an encoded number (which may be a single longitude, or
+latitude, or delta).
+
+=back
 
 =head1 AUTHOR
 

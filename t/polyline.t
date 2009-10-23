@@ -17,7 +17,7 @@ BEGIN {
     }
 }
 
-plan tests => 2;
+plan tests => 3;
 
 use_ok 'Algorithm::GooglePolylineEncoding';
 
@@ -26,5 +26,7 @@ my @path = ({lat => 38.5,   lon => -120.2},
 	    {lat => 43.252, lon => -126.453},
 	   );
 is(Algorithm::GooglePolylineEncoding::encode_polyline(@path), '_p~iF~ps|U_ulLnnqC_mqNvxq`@');
+
+is(Algorithm::GooglePolylineEncoding::encode_level(174), 'mD');
 
 __END__
