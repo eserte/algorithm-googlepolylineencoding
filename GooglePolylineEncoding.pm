@@ -21,10 +21,12 @@ sub encode_number {
 #   1. Take the initial signed value:
 #      -179.9832104
     my $number = shift;
-    my $is_negative = $number < 0;
 #   2. Take the decimal value and multiply it by 1e5, rounding the result:
 #      -17998321
-    $number = int($number * 1e5 + ($is_negative ? -0.5 : 0.5));
+    $number = int($number * 1e5 + ($number < 0 ? -0.5 : 0.5));
+    # Don't do this before rounding. Negativeness may change if for example
+    # using very small negative numbers.
+    my $is_negative = $number < 0;
 #   3. Convert the decimal value to binary. Note that a negative value must be calculated using its two's complement by inverting the binary value and adding one to the result:
 #      00000001 00010010 10100001 11110001
 #      11111110 11101101 01011110 00001110
