@@ -160,6 +160,10 @@ latitude, or delta).
 
 =back
 
+=head1 TODO
+
+Implement decode_polyline.
+
 =head1 AUTHOR
 
 Slaven Rezic <srezic@cpan.org>
