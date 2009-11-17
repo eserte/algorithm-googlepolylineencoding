@@ -1,4 +1,5 @@
 # -*- perl -*-
+use 5.006; # sprintf("%b")
 use ExtUtils::MakeMaker;
 
 WriteMakefile(NAME          => 'Algorithm::GooglePolylineEncoding',

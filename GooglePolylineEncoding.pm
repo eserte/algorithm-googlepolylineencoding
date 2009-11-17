@@ -13,6 +13,8 @@
 
 package Algorithm::GooglePolylineEncoding;
 
+use 5.006; # sprintf("%b")
+
 use strict;
 use vars qw($VERSION);
 $VERSION = '0.01';
