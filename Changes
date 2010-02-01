@@ -1,0 +1,7 @@
+Revision history for Perl extension Algorithm::GooglePolylineEncoding.
+
+0.02
+	- implementation of decode_polyline
+
+0.01
+	- initial release
