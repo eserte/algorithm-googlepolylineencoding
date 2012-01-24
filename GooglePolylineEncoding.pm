@@ -72,14 +72,13 @@ sub encode_number {
 sub encode_polyline {
     my(@path) = @_;
     my @res;
-    my($curr_lat,$curr_lon) = do { my $first = shift @path; ($first->{lat}, $first->{lon}) };
-    push @res, encode_number($curr_lat), encode_number($curr_lon);
+    my($curr_lat_e5,$curr_lon_e5) = (0,0);
     for my $lat_lon (@path) {
-        my($lat,$lon) = ($lat_lon->{lat}, $lat_lon->{lon});
-        my $deltay = $lat - $curr_lat;
-        my $deltax = $lon - $curr_lon;
+	my($lat_e5,$lon_e5) = map { sprintf("%.0f", $_*1e5) } ($lat_lon->{lat}, $lat_lon->{lon});
+        my $deltay = ($lat_e5 - $curr_lat_e5) / 1e5;
+        my $deltax = ($lon_e5 - $curr_lon_e5) / 1e5;
         push @res, encode_number($deltay), encode_number($deltax);
-        ($curr_lat,$curr_lon) = ($lat,$lon);
+        ($curr_lat_e5,$curr_lon_e5) = ($lat_e5,$lon_e5);
     }
     join '', @res;
 }
