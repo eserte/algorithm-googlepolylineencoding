@@ -1,5 +1,8 @@
 Revision history for Perl extension Algorithm::GooglePolylineEncoding.
 
+0.03
+	- better precision (RT#74303)
+
 0.02
 	- implementation of decode_polyline
 
