@@ -4,17 +4,21 @@ use ExtUtils::MakeMaker;
 
 my $eumm_recent_enough = $ExtUtils::MakeMaker::VERSION >= 6.54;
 
-if (!$eumm_recent_enough) {
+if (!$eumm_recent_enough || !eval { require CPAN::Meta; 1 }) {
     *MY::dist_core = sub {
 	<<'EOF';
 dist :
-	$(NOECHO) $(ECHO) "Sorry, use a newer EUMM!"
+	$(NOECHO) $(ECHO) "Sorry, you need a recent EUMM and CPAN::Meta"
 
 EOF
     };
 }
 
-WriteMakefile(NAME          => 'Algorithm::GooglePolylineEncoding',
+
+
+
+WriteMakefile(
+	      NAME          => 'Algorithm::GooglePolylineEncoding',
 	      AUTHOR        => 'Slaven Rezic <srezic@cpan.org>',
 	      VERSION_FROM  => 'GooglePolylineEncoding.pm',
 	      ABSTRACT_FROM => 'GooglePolylineEncoding.pm',
