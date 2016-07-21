@@ -2,6 +2,7 @@
 use 5.006; # sprintf("%b")
 use ExtUtils::MakeMaker;
 
+my $is_devel_host = defined $ENV{USER} && $ENV{USER} eq 'eserte' && $^O =~ /bsd/i && -f "../../perl.release.mk";
 my $eumm_recent_enough = $ExtUtils::MakeMaker::VERSION >= 6.54;
 
 if (!$eumm_recent_enough || !eval { require CPAN::Meta; 1 }) {
@@ -30,3 +31,20 @@ WriteMakefile(
 	       : ()
 	      ),
 	     );
+
+sub MY::postamble {
+    my $postamble = '';
+
+    if ($is_devel_host) {
+	$postamble .= <<'EOF';
+
+PERL_TEST_DISTRIBUTION_CHANGES=yes
+
+.include "../../perl.release.mk"
+.include "../../perl.git.mk"
+
+EOF
+    }
+
+    $postamble;
+}
