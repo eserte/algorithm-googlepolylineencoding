@@ -1,5 +1,9 @@
 Revision history for Perl extension Algorithm::GooglePolylineEncoding.
 
+0.04
+	- no code changes, just distribution care
+	  (GH Pull #1, .travis.yml, appveyor.yml)
+
 0.03
 	- better precision (RT#74303)
 

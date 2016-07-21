@@ -1,6 +1,8 @@
 /.prove
 /Algorithm-GooglePolylineEncoding-*.tar.gz
 /MANIFEST.bak
+/MYMETA.json
+/MYMETA.yml
 /Makefile
 /Makefile.old
 /blib
