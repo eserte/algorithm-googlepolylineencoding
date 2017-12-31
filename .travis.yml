@@ -1,6 +1,7 @@
 language: perl
 matrix:
  include:
+  - perl: "5.26"
   - perl: "5.22"
   - perl: "5.20"
   - perl: "5.18"
@@ -13,4 +14,4 @@ matrix:
 branches:
  except:
   - /appveyor/
-sudo: true
+sudo: false
