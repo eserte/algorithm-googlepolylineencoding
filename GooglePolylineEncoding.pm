@@ -89,7 +89,15 @@ sub encode_level {
     my $number = shift;
 #   2. Convert the decimal value to a binary value:
 #      10101110
-    my $bin = sprintf '%b', $number;
+    my $bin;
+    if ($number > ~0) {
+	# sprintf '%b' works only for integers
+	require Math::BigInt;
+	$bin = Math::BigInt->new($number)->as_bin;
+	$bin =~ s{^0b}{};
+    } else {
+	$bin = sprintf '%b', $number;
+    }
 #   3. Break the binary value out into 5-bit chunks (starting from the right hand side):
 #      101 01110
     $bin = '0'x(5-length($bin)%5) . $bin if length($bin)%5 != 0; # pad
