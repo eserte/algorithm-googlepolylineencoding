@@ -17,7 +17,7 @@ use 5.006; # sprintf("%b")
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.05';
+$VERSION = '0.05_50';
 
 sub encode_number {
 #   1. Take the initial signed value:
