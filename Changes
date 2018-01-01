@@ -1,5 +1,8 @@
 Revision history for Perl extension Algorithm::GooglePolylineEncoding.
 
+0.06	2018-01-01
+	- stable release with changes in 0.05_50
+
 0.05_50	2017-12-31
 	- fix encode_level for large integers (by using
 	  Math::BigInt's as_bin)
