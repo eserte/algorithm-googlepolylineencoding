@@ -9,9 +9,6 @@ matrix:
     perl: 5.26
   - dist: focal
     perl: 5.32
-  - dist: focal
-    perl: 5.32
-    env: USE_SYSTEM_PERL=1
 
 #matrix:
 # include:
