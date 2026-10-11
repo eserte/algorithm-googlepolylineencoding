@@ -19,6 +19,7 @@ jobs:
        include:
          - os: 'ubuntu-22.04'
          - os: 'ubuntu-24.04'
+         - os: 'ubuntu-26.04'
     steps:
     - name: apt hacks
       # /etc/apt/sources.list should be sufficient; all the other repositories are possibly problematic
@@ -48,9 +49,10 @@ jobs:
           - perlimage: 5.16.3-buster
           - perlimage: 5.18.4-buster
           - perlimage: 5.22.4-stretch
-          - perlimage: 5.36.0-slim-bullseye
+          - perlimage: 5.36.0-slim-buster
           - perlimage: 5.38.0-slim-bookworm
           - perlimage: 5.40.0-slim-bookworm
+          - perlimage: 5.44.0-slim-trixie
 
     steps:
     - name: apt hacks
